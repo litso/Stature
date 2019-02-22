@@ -7,23 +7,33 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AF0155A8221F43C90086AF04 /* StatusViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF0155A7221F43C90086AF04 /* StatusViewController.swift */; };
 		AF43F925221F161B00677CFC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF43F924221F161B00677CFC /* AppDelegate.swift */; };
 		AF43F927221F161B00677CFC /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = AF43F926221F161B00677CFC /* art.scnassets */; };
-		AF43F929221F161B00677CFC /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF43F928221F161B00677CFC /* ViewController.swift */; };
+		AF43F929221F161B00677CFC /* VerticalMeasurementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF43F928221F161B00677CFC /* VerticalMeasurementController.swift */; };
 		AF43F92C221F161B00677CFC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF43F92A221F161B00677CFC /* Main.storyboard */; };
 		AF43F92E221F161D00677CFC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF43F92D221F161D00677CFC /* Assets.xcassets */; };
 		AF43F931221F161D00677CFC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = AF43F92F221F161D00677CFC /* LaunchScreen.storyboard */; };
+		AF43F94A221F1BD100677CFC /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF43F949221F1BD100677CFC /* Grid.swift */; };
+		AF930C20221F73CB00830918 /* BannerButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF930C1F221F73CB00830918 /* BannerButton.swift */; };
+		AF930C22221F746C00830918 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AF930C21221F746C00830918 /* Colors.xcassets */; };
+		AFD33959221F782700355129 /* ShowMeasurementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AFD33958221F782700355129 /* ShowMeasurementController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		AF0155A7221F43C90086AF04 /* StatusViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusViewController.swift; sourceTree = "<group>"; };
 		AF43F921221F161B00677CFC /* Stature.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Stature.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF43F924221F161B00677CFC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		AF43F926221F161B00677CFC /* art.scnassets */ = {isa = PBXFileReference; lastKnownFileType = wrapper.scnassets; path = art.scnassets; sourceTree = "<group>"; };
-		AF43F928221F161B00677CFC /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		AF43F928221F161B00677CFC /* VerticalMeasurementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMeasurementController.swift; sourceTree = "<group>"; };
 		AF43F92B221F161B00677CFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		AF43F92D221F161D00677CFC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		AF43F930221F161D00677CFC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		AF43F932221F161D00677CFC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AF43F949221F1BD100677CFC /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		AF930C1F221F73CB00830918 /* BannerButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BannerButton.swift; sourceTree = "<group>"; };
+		AF930C21221F746C00830918 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		AFD33958221F782700355129 /* ShowMeasurementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShowMeasurementController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,11 +68,16 @@
 			children = (
 				AF43F924221F161B00677CFC /* AppDelegate.swift */,
 				AF43F926221F161B00677CFC /* art.scnassets */,
-				AF43F928221F161B00677CFC /* ViewController.swift */,
-				AF43F92A221F161B00677CFC /* Main.storyboard */,
 				AF43F92D221F161D00677CFC /* Assets.xcassets */,
-				AF43F92F221F161D00677CFC /* LaunchScreen.storyboard */,
+				AF930C1F221F73CB00830918 /* BannerButton.swift */,
+				AF930C21221F746C00830918 /* Colors.xcassets */,
+				AF43F949221F1BD100677CFC /* Grid.swift */,
 				AF43F932221F161D00677CFC /* Info.plist */,
+				AF43F92F221F161D00677CFC /* LaunchScreen.storyboard */,
+				AF43F92A221F161B00677CFC /* Main.storyboard */,
+				AFD33958221F782700355129 /* ShowMeasurementController.swift */,
+				AF0155A7221F43C90086AF04 /* StatusViewController.swift */,
+				AF43F928221F161B00677CFC /* VerticalMeasurementController.swift */,
 			);
 			path = Stature;
 			sourceTree = "<group>";
@@ -126,6 +141,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AF930C22221F746C00830918 /* Colors.xcassets in Resources */,
 				AF43F927221F161B00677CFC /* art.scnassets in Resources */,
 				AF43F931221F161D00677CFC /* LaunchScreen.storyboard in Resources */,
 				AF43F92E221F161D00677CFC /* Assets.xcassets in Resources */,
@@ -160,8 +176,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AF43F929221F161B00677CFC /* ViewController.swift in Sources */,
+				AF0155A8221F43C90086AF04 /* StatusViewController.swift in Sources */,
+				AF43F929221F161B00677CFC /* VerticalMeasurementController.swift in Sources */,
 				AF43F925221F161B00677CFC /* AppDelegate.swift in Sources */,
+				AFD33959221F782700355129 /* ShowMeasurementController.swift in Sources */,
+				AF930C20221F73CB00830918 /* BannerButton.swift in Sources */,
+				AF43F94A221F1BD100677CFC /* Grid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
