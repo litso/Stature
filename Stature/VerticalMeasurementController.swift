@@ -13,6 +13,7 @@ class VerticalMeasurementController: UIViewController {
 
     @IBOutlet weak var measureButton: BannerButton!
     @IBOutlet var sceneView: ARSCNView!
+    var audioVolumeChanged: NSKeyValueObservation?
     var grids: [Grid] = []
     var selectedGrid: Grid? {
         get {
@@ -46,9 +47,9 @@ class VerticalMeasurementController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         sceneView.delegate = self
-        
+
         // Show statistics such as fps and timing information
 //        sceneView.showsStatistics = true
 //        sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
@@ -64,6 +65,31 @@ class VerticalMeasurementController: UIViewController {
         // Set the delegate to ensure this gesture is only used when there are no virtual objects in the scene.
         tapGesture.delegate = self
         sceneView.addGestureRecognizer(tapGesture)
+
+        let audioSession = AVAudioSession.sharedInstance()
+
+        try? audioSession.setCategory(.playback, mode: .measurement, options: .mixWithOthers)
+        audioSession.addObserver(self, forKeyPath: "outputVolume",
+                                 options: NSKeyValueObservingOptions.new, context: nil)
+
+        audioVolumeChanged = audioSession.observe(\.outputVolume, options: [.new, .old]) { [weak self] _, _  in
+            guard let self = self else { return }
+            if self.distanceMeasurement != nil {
+                DispatchQueue.main.async {
+                    self.performSegue(withIdentifier: "Show Measurement", sender: self)
+                }
+            }
+        }
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleAudioInterruption),
+                                               name: AVAudioSession.interruptionNotification,
+                                               object: nil)
+
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(handleAppBecameActive),
+                                               name: UIApplication.didBecomeActiveNotification,
+                                               object: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -79,9 +105,39 @@ class VerticalMeasurementController: UIViewController {
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? ShowMeasurementController {
-            vc.measurement = distanceMeasurement
+        if let viewController = segue.destination as? ShowMeasurementController {
+            viewController.measurement = distanceMeasurement
         }
+    }
+
+    @IBAction func measureButtonTapped(_ sender: Any) {
+        performSegue(withIdentifier: "Show Measurement", sender: self)
+    }
+}
+
+// MARK: - Audio Session Management
+
+extension VerticalMeasurementController {
+    @objc func handleAudioInterruption(notification: Notification) {
+        guard let userInfo = notification.userInfo,
+            let typeValue = userInfo[AVAudioSessionInterruptionTypeKey] as? UInt,
+            let type = AVAudioSession.InterruptionType(rawValue: typeValue) else {
+                return
+        }
+        if type == .ended {
+            if let optionsValue = userInfo[AVAudioSessionInterruptionOptionKey] as? UInt {
+                let options = AVAudioSession.InterruptionOptions(rawValue: optionsValue)
+                if options.contains(.shouldResume) {
+                    let audioSession = AVAudioSession.sharedInstance()
+                    try? audioSession.setActive(true, options: [])
+                }
+            }
+        }
+    }
+
+    @objc func handleAppBecameActive(_: Notification) {
+        let audioSession = AVAudioSession.sharedInstance()
+        try? audioSession.setActive(true, options: [])
     }
 }
 
@@ -157,7 +213,8 @@ private extension VerticalMeasurementController {
 
 extension VerticalMeasurementController: ARSCNViewDelegate {
     func renderer(_ renderer: SCNSceneRenderer, didAdd node: SCNNode, for anchor: ARAnchor) {
-        let grid = Grid(anchor: anchor as! ARPlaneAnchor)
+        guard let anchor = anchor as? ARPlaneAnchor else { return }
+        let grid = Grid(anchor: anchor)
         self.grids.append(grid)
         node.addChildNode(grid)
 
@@ -167,11 +224,13 @@ extension VerticalMeasurementController: ARSCNViewDelegate {
     }
 
     func renderer(_ renderer: SCNSceneRenderer, didUpdate node: SCNNode, for anchor: ARAnchor) {
+        guard let anchor = anchor as? ARPlaneAnchor else { return }
+
         guard let foundGrid = self.grids.first( where: { $0.anchor.identifier == anchor.identifier }) else {
             return
         }
 
-        foundGrid.update(anchor: anchor as! ARPlaneAnchor)
+        foundGrid.update(anchor: anchor)
     }
 
     func renderer(_ renderer: SCNSceneRenderer, updateAtTime time: TimeInterval) {
@@ -231,20 +290,6 @@ private extension VerticalMeasurementController {
         let anchorPosition = anchor.transform.columns.3
         let cameraPosition = camera.transform.columns.3
 
-
         return abs(cameraPosition.y - anchorPosition.y)
-    }
-
-    func cameraDistance(to anchor: ARAnchor) -> Float? {
-        guard let currentFrame = sceneView.session.currentFrame else { return nil }
-
-        let camera = currentFrame.camera
-        let anchorPosition = anchor.transform.columns.3
-        let cameraPosition = camera.transform.columns.3
-
-        // here’s a line connecting the two points, which might be useful for other things
-        let cameraToAnchor = cameraPosition - anchorPosition
-        // and here’s just the scalar distance
-        return length(cameraToAnchor)
     }
 }

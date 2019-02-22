@@ -14,7 +14,7 @@
         <!--Vertical Measurement Controller-->
         <scene sceneID="tXr-a1-R10">
             <objects>
-                <viewController id="BV1-FR-VrT" customClass="VerticalMeasurementController" customModule="Stature" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="crossDissolve" id="BV1-FR-VrT" customClass="VerticalMeasurementController" customModule="Stature" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="U0K-SW-4ec">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -38,7 +38,7 @@
                                 </constraints>
                                 <state key="normal" title="Measure"/>
                                 <connections>
-                                    <segue destination="mv8-LN-szf" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="mUv-2T-pxU"/>
+                                    <action selector="measureButtonTapped:" destination="BV1-FR-VrT" eventType="touchUpInside" id="pq8-a3-BZ2"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -60,6 +60,7 @@
                     <connections>
                         <outlet property="measureButton" destination="O2L-9f-PP3" id="gec-Rm-r2h"/>
                         <outlet property="sceneView" destination="BrB-h1-WRS" id="5nT-qQ-ynl"/>
+                        <segue destination="mv8-LN-szf" kind="presentation" identifier="Show Measurement" id="5Fa-Xd-p2T"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SZV-WD-TEh" sceneMemberID="firstResponder"/>
@@ -119,9 +120,9 @@
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8fp-lo-dh4">
-                                            <rect key="frame" x="0.0" y="0.0" width="226" height="52"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="226.5" height="52"/>
                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="EWS-at-DzS">
-                                                <rect key="frame" x="0.0" y="0.0" width="226" height="52"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="226.5" height="52"/>
                                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" verticalCompressionResistancePriority="250" text="Tracking status" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ue9-kM-ED6" userLabel="Messages label">
