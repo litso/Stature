@@ -15,7 +15,9 @@ class Grid: SCNNode {
     var textGeometry: SCNText!
     var isSelected = false {
         didSet {
-
+            if oldValue != isSelected {
+                updateText(textGeometry: textGeometry, isSelected: isSelected)
+            }
         }
     }
 
@@ -74,13 +76,13 @@ private extension Grid {
         textNode.name = "textNode"
         textNode.position = SCNVector3Make(anchor.center.x, 0, anchor.center.z)
         textNode.rotation = SCNVector4(1.0, 0.0, 0.0, -Double.pi / 2)
-        textNode.scale = SCNVector3Make(0.01, 0.01, 0.01)
+        textNode.scale = SCNVector3Make(0.05, 0.05, 0.05)
 
         addChildNode(textNode)
         addChildNode(planeNode)
     }
 
     func updateText(textGeometry: SCNText, isSelected: Bool) {
-        textGeometry.string = isSelected ? "✅" : "Tap"
+        textGeometry.string = isSelected ? "✔︎" : "Tap"
     }
 }
